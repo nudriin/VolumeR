@@ -31,7 +31,6 @@ class VolumeOverlayService : Service() {
         super.onCreate()
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
 
-        // Inisialisasi View Binding
         binding = OverlayLayoutBinding.inflate(LayoutInflater.from(this))
 
         params = WindowManager.LayoutParams(
@@ -42,19 +41,16 @@ class VolumeOverlayService : Service() {
             PixelFormat.TRANSLUCENT
         )
 
-        // Posisi awal overlay
         params.gravity = Gravity.TOP or Gravity.START
         params.x = 100
         params.y = 100
+        params.windowAnimations = android.R.style.Animation_Dialog
 
-        // Tambahkan view ke window manager
         windowManager.addView(binding.root, params)
 
-        // Tambahkan listener drag
         binding.overlayContainer.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    // Simpan posisi awal
                     initialX = params.x
                     initialY = params.y
                     initialTouchX = event.rawX
@@ -63,26 +59,21 @@ class VolumeOverlayService : Service() {
                 }
 
                 MotionEvent.ACTION_MOVE -> {
-                    // Hitung perpindahan
                     val deltaX = (event.rawX - initialTouchX).toInt()
                     val deltaY = (event.rawY - initialTouchY).toInt()
 
-                    // Update posisi
                     params.x = initialX + deltaX
                     params.y = initialY + deltaY
 
-                    // Update view
                     windowManager.updateViewLayout(binding.root, params)
                     return@setOnTouchListener true
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    // Optional: Tambahkan logika klik jika perpindahan sangat kecil
                     val deltaX = abs(event.rawX - initialTouchX)
                     val deltaY = abs(event.rawY - initialTouchY)
 
                     if (deltaX < 10 && deltaY < 10) {
-                        // Ini dianggap sebagai klik, bukan drag
                         v.performClick()
                     }
                     return@setOnTouchListener true
@@ -92,9 +83,8 @@ class VolumeOverlayService : Service() {
             }
         }
 
-        // Listener untuk tombol
         binding.btnCloseOverlay.setOnClickListener {
-            stopSelf() // Tutup service
+            stopSelf()
         }
 
         binding.btnVolumeUp.setOnClickListener {
@@ -116,7 +106,6 @@ class VolumeOverlayService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Hapus overlay view
         windowManager.removeView(binding.root)
     }
 }
