@@ -11,20 +11,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         checkOverlayPermission()
+
+        finish()
     }
 
-    @Suppress("DEPRECATION")
     private fun checkOverlayPermission() {
-        if (!Settings.canDrawOverlays(this)) {
+        if (Settings.canDrawOverlays(this)) {
+            startOverlayService()
+        } else {
             val intent = Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:$packageName")
             )
             startActivityForResult(intent, OVERLAY_PERMISSION_REQUEST_CODE)
-        } else {
-            startOverlayService()
-            finish()
         }
     }
 
@@ -40,8 +41,9 @@ class MainActivity : AppCompatActivity() {
             if (Settings.canDrawOverlays(this)) {
                 startOverlayService()
             } else {
-                Toast.makeText(this, "Izin overlay diperlukan", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Overlay permission is required", Toast.LENGTH_SHORT).show()
             }
+            finish()
         }
     }
 

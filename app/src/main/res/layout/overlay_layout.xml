@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/overlayContainer"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/rounded_bg"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:elevation="6dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -26,24 +26,24 @@
 
         <ImageButton
             android:id="@+id/btnVolumeDown"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/rounded_lime_bg"
             android:src="@drawable/remove"
             android:layout_marginEnd="8dp" />
 
         <ImageButton
             android:id="@+id/btnVolumeUp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/rounded_lime_bg"
             android:src="@drawable/add"
             android:layout_marginEnd="8dp" />
 
         <ImageButton
             android:id="@+id/btnMute"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/rounded_lime_bg"
             android:src="@drawable/mute" />
     </LinearLayout>
@@ -53,7 +53,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Close"
-        android:backgroundTint="@color/lime"
-        android:textColor="@color/dark"
+        android:backgroundTint="@color/dark"
+        android:textColor="@color/ash"
         android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnStopService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop"
+        android:backgroundTint="@color/dark"
+        android:textColor="@color/ash" />
 </LinearLayout>
